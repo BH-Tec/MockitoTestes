@@ -1,5 +1,11 @@
 package com.brunodorea.testesmockito.MockitoTestes;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doThrow;
+
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -8,8 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class CadastrarPessoaTeste {
@@ -32,6 +36,19 @@ public class CadastrarPessoaTeste {
         assertEquals("Salvador", pessoa.getEndereco().getCidade());
         assertEquals("Rua A", pessoa.getEndereco().getLogradouro());
         assertEquals("Casa", pessoa.getEndereco().getComplemento());
+        assertNull(pessoa.getEndereco());
+    }
+
+    @Test
+    void lancarExceptionQuandoChamarApiDosCorreios() {
+
+        // Mockito.when(apiDosCorreios.buscaDadosComBaseNoCep(anyString())).thenThrow(IllegalArgumentException.class);
+
+        doThrow(IllegalArgumentException.class)
+                            .when(apiDosCorreios)
+                            .buscaDadosComBaseNoCep(anyString());
+
+        assertThrows(IllegalArgumentException.class, () -> cadastrarPessoa.cadastrarPessoa("Bruno", "123.456.789-00", LocalDate.of(1990, 1, 10), "01310-000")); 
     }
 
 }

@@ -1,6 +1,7 @@
 package com.brunodorea.testesmockito.MockitoTestes;
 
-import org.assertj.core.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -36,9 +37,9 @@ public class ServicoEnvioEmailTeste {
         Email emailCapturado = captor.getValue();
 
         // Erro na utização do assertEquals
-        Assertions.assertEquals(enderecoDeEmail, emailCapturado.getEnderecoEmail());
-        Assertions.assertEquals(mensagem, emailCapturado.getMensagem());
-        Assertions.assertEquals(Formato.TEXTO, emailCapturado.getFormato());
+        assertEquals(enderecoDeEmail, emailCapturado.getEnderecoEmail());
+        assertEquals(mensagem, emailCapturado.getMensagem());
+        assertEquals(Formato.TEXTO, emailCapturado.getFormato());
     }
     
 }
